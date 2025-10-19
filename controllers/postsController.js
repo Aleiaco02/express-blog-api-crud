@@ -28,12 +28,11 @@ function destroy(req, res) {
     const id = parseInt(req.params.id);
 
     // Cerchiamo il post tramite id
-    const post = posts.find(post => post.id === id);
+    const index = posts.findIndex(post => post.id === id);
 
-    // Piccolo controllo
-    if (!post) {
-        res.status(404);
-        return res.json({
+    // Se non trovato, rispondiamo con 404
+    if (index === -1) {
+        return res.status(404).json({
             status: 404,
             error: "Not Found",
             message: "Post non trovato"
@@ -41,9 +40,12 @@ function destroy(req, res) {
     }
 
     // Rimuoviamo il post dall'array
-    posts.splice(posts.indexOf(post), 1);
+    posts.splice(index, 1);
 
-    // Restituiamo lo status corretto
+    // Stampiamo la lista aggiornata nel terminale
+    console.log('Lista post aggiornata:', posts);
+
+    // Rispondiamo con status 204 (No Content)
     res.sendStatus(204);
 }
 
