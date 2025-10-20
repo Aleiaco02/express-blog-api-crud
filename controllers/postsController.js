@@ -63,7 +63,7 @@ function update(req, res) {
 
     // Log di controllo
     console.log(posts);
-    console.log(post);
+    console.log("il post modificato è ", post);
 
     // Restituiamo il post aggiornato
     res.json(post);
