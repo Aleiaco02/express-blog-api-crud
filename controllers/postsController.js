@@ -16,12 +16,59 @@ function show(req, res) {
 }
 
 function store(req, res) {
-    res.send('Creazione nuovo post');
+    // creazione nuovo id
+    const newId = posts[posts.length - 1].id + 1;
+
+    // Creiamo un nuovo oggetto post
+    const newPost = {
+        id: newId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    }
+
+    // Aggiungiamo il post all'array dei posts
+    posts.push(newPost);
+
+    // controllo
+    console.log(posts);
+
+
+    // Restituiamo lo status corretto e la pizza appena creata
+    res.status(201).json(newPost);
 }
 
 function update(req, res) {
-    res.send('Modifica intera del post ' + req.params.id);
+    // Recuperiamo l'id dall'URL e lo trasformiamo in numero
+    const id = parseInt(req.params.id);
+
+    // Cerchiamo il post tramite id
+    const post = posts.find(post => post.id === id);
+
+    // Se il post non esiste errore 404
+    if (!post) {
+        res.status(404);
+        return res.json({
+            error: "Not Found",
+            message: "Post non trovato"
+        });
+    }
+
+    // Aggiorniamo i campi del post con i nuovi dati
+    post.title = req.body.title;
+    post.content = req.body.content;
+    post.image = req.body.image;
+    post.tags = req.body.tags;
+
+    // Log di controllo
+    console.log(posts);
+    console.log(post);
+
+    // Restituiamo il post aggiornato
+    res.json(post);
 }
+
 
 function destroy(req, res) {
     // Recuperiamo l'id dall'URL e lo trasformiamo in numero

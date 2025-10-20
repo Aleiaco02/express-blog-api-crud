@@ -4,8 +4,11 @@ import postsRouter from './routers/postsRouter.js';
 const app = express()
 const port = 3000
 
+// middleware static
 app.use(express.static('public'));
 
+// middleware bodyparser
+app.use(express.json());
 
 
 // rotta di partenza
