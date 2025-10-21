@@ -1,7 +1,13 @@
 import posts from '../public/immagini_e_post/posts.js';
 
 function index(req, res) {
+    giacomo.get();
+    paperino.get();
+    giacomo.get();
+
+
     res.json(posts);
+
 }
 
 function show(req, res) {
